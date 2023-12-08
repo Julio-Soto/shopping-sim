@@ -18,6 +18,7 @@ public:
     Store();
     void stock(string fileName);
     void setCustomerCheckingOut(Customer* aCustomer);
+    Item* getItem(unsigned int itemCode);
     vector<Item*> getStockList();
     // string checkOut();
 };

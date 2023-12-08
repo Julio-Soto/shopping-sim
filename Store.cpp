@@ -44,7 +44,7 @@ void Store::stock(string fileName)
         itemString.erase(0, barDelimiterPos + 1);
 
         slashDelimiterPos = itemString.find("/");
-        std::cout << slashDelimiterPos << std::endl;
+
         if(slashDelimiterPos == -1)
         {
             price = stof(itemString.substr(0));
@@ -71,6 +71,15 @@ void Store::setCustomerCheckingOut(Customer* aCustomer)
     customerCheckingOut = aCustomer;
 }
 
+Item* Store::getItem(unsigned int itemCode)
+{
+    for(int i=0; i < stockList.size();++i)
+    {
+        if(stockList[i]->getInventoryCode() == itemCode)
+            return stockList[i];
+    }
+    return nullptr;
+}
 vector<Item*> Store::getStockList()
 {
     return stockList;
