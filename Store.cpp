@@ -1,6 +1,7 @@
 #include <iostream>
     using std::endl;
     using std::cerr;
+    using std::cout;
     using std::stoi;
     using std::stof;
 #include <fstream>
@@ -10,9 +11,20 @@
     using std::istringstream;
 #include <string>
     using std::string;
+#include <iomanip>
 #include "Store.h"
 
 Store::Store(){}
+
+void Store::greeting()
+{
+    cout << endl << endl << "          WELCOME TO STOP N SHOP" << endl;
+    cout <<                 "        Hometown Grocer. We All Win" << endl <<endl;
+    cout <<                 "15968 east Riviera Ave" << endl;
+    cout <<                 "(555) 720-0420" <<endl << endl;
+    cout <<                 "Your Cashier was: Roberto Soto" << endl;
+    cout <<                 "--------------------------------------" << endl ;
+}
 
 void Store::stock(string fileName)
 {
@@ -66,11 +78,6 @@ void Store::stock(string fileName)
     inventoryFile.close();
 }
 
-void Store::setCustomerCheckingOut(Customer* aCustomer)
-{
-    customerCheckingOut = aCustomer;
-}
-
 Item* Store::getItem(unsigned int itemCode)
 {
     for(int i=0; i < stockList.size();++i)
@@ -83,4 +90,34 @@ Item* Store::getItem(unsigned int itemCode)
 vector<Item*> Store::getStockList()
 {
     return stockList;
+}
+
+void Store::checkOut(Customer* aCust)
+{
+    float price{0.0};
+    float total{0.0};
+    float tax{0.0};
+
+    greeting();    
+    for (size_t i{0}; i < aCust->getCart().size(); i++)
+    {
+        price = aCust->getCart()[i]->getTotalPrice();
+        total += price;
+    }
+    if (total < 50)
+    {
+        for(size_t i{0}; i < aCust->getCart().size(); i++)
+            cout << aCust->getCart()[i]->itemStringRepresentation();
+
+        tax = total * 0.048; //sales tax
+
+        cout << std::right << std::setw(33) << "TAX     $" << tax << endl;
+        cout << std::right << std::setw(33) << "TOTAL   $" << (tax + total) << endl;
+    }
+    else
+    {
+        cout << "Your Total is: $" << total << endl;
+        cout << "you only have $50 bucks" << endl;
+        cerr << "CARD DECLINED!!" << endl << endl;
+    }
 }

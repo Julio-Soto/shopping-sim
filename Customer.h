@@ -1,3 +1,6 @@
+#ifndef CUSTOMER_H
+#define CUSTOMER_H
+
 #include <array>
     using std::array;
 
@@ -7,11 +10,9 @@
 #include <string>
     using std::string;
 
-#include "Store.h"
+#include "Item.h"
 
-
-class Item;
-
+class Store; //forward declaration
 class Customer
 {
 private:
@@ -23,7 +24,11 @@ public:
     Customer(int amountOfItems,Store* aStore);
     ~Customer();
     int getAmountOfItems() const;
+    unsigned int generateRandomCode() const;
+    float generateRandomWeight();
     void setAmountofItems(unsigned int amount);
     vector<Item*> getCart() const;
     void fillCart();
 };
+
+#endif

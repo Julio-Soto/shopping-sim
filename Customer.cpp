@@ -3,6 +3,9 @@
     using std::endl;
 #include <random>
 #include "Customer.h"
+#include "Store.h"
+#include "PurchasedGenericItem.h"
+#include "PurchasedProduce.h"
 
 Customer::Customer(int amountOfItems,Store* Store)
 : amountOfItems(amountOfItems), currentStore(Store){}
@@ -23,28 +26,40 @@ void Customer::setAmountofItems(unsigned int amount)
 {
     amountOfItems = amount;
 }
+
+unsigned int Customer::generateRandomCode() const
+{
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distribution(2300,2399);
+    return distribution(gen);
+}
+
+float Customer::generateRandomWeight() 
+{
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> distribution(100, 300);
+
+    float randomWeight = distribution(gen);
+    return (randomWeight / 100); 
+}
+
 void Customer::fillCart()
 {
     Item* selectedItem{nullptr};
-    int randomItemCode{0};
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> distribution(2300, 2399);
+    float weight{0};
 
     while(cart.size() < amountOfItems)
     {
-        selectedItem = currentStore->getItem((distribution(gen)));
+        selectedItem = currentStore->getItem((generateRandomCode()));
         if(selectedItem != nullptr)
-            cart.push_back(selectedItem);
+            if(selectedItem->isWeighted())
+            {
+                weight = generateRandomWeight();
+                cart.push_back(new PurchasedProduce(selectedItem->getInventoryCode(),selectedItem->getDescription(),selectedItem->getPrice(),selectedItem->isWeighted(),weight));
+            }
+            else
+                cart.push_back(new PurchasedGenericItem(selectedItem->getInventoryCode(),selectedItem->getDescription(),selectedItem->getPrice(),selectedItem->isWeighted()));
     }
-    cout << cart.size() << endl;
-    /*
-    for (size_t i{0}; i < currentStore->getStockList().size(); i++)
-    {
-
-        cout << currentStore->getStockList()[i]->getInventoryCode() << endl;
-        cout << currentStore->getStockList()[i]->getDescription() << endl;
-        cout << currentStore->getStockList()[i]->getPrice() << endl;
-        cout << currentStore->getStockList()[i]->getItemWeightedBool() << endl;
-    }*/
 }

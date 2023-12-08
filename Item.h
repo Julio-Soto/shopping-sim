@@ -12,11 +12,13 @@ private:
     float price;
     bool isItemWeighted;
 public:
-    Item(unsigned int inventoryCode,string description,float price, bool isItemWeighted);
+    Item(unsigned int inventoryCode,string description, float price, bool isItemWeighted);
     unsigned int getInventoryCode() const;
     string getDescription() const;
     float getPrice() const;
-    bool getItemWeightedBool() const;
-    // virtual itemStringRepresentation() const = 0;
+    bool isWeighted() const;
+    virtual float getTotalPrice() const;
+    // virtual string toString() final;
+    virtual string itemStringRepresentation() const;
 };
 #endif

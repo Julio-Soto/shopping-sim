@@ -12,9 +12,9 @@
 2312 | Avocado | 1.99/pound
 2313 | Scented Candles Set | 19.99
 2314 | Kiwi | 1.39/pound
-2315 | Gourmet Coffee Blend | 9.99
+2315 | Gourmet Coffee | 9.99
 2316 | Butternut Squash | 0.79/pound
 2317 | Succulent Plant | 12.99
 2318 | Mango | 1.59/pound
-2319 | Gourmet Chocolate Truffles | 24.99
+2319 | Gourmet Truffles | 24.99
 2320 | Zucchini | 0.99/pound

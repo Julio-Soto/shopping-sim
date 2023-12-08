@@ -1,24 +1,25 @@
+#ifndef STORE_H
+#define STORE_H
+
 #include <vector>
     using std::vector;
 #include <string>
     using std::string;
 #include "Item.h"
-
-class Customer;
-
-class Item;
+#include "Customer.h"
 
 class Store
 {
 private:
     vector<Item*> stockList;
-    Customer* customerCheckingOut;
 
 public:
     Store();
+    void greeting();
     void stock(string fileName);
-    void setCustomerCheckingOut(Customer* aCustomer);
     Item* getItem(unsigned int itemCode);
     vector<Item*> getStockList();
-    // string checkOut();
+    void checkOut(Customer*);
 };
+
+#endif
